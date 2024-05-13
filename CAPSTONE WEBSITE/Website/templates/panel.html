@@ -1,0 +1,354 @@
+<!-- Your HTML code -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Navbar Sections End -->
+    <!-- Panel Section Start -->
+    <div class="panel-section">
+        <div class="panel-header">
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Search">
+            </div>
+            <div class="panel-action">
+                <a href="#" id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="#" id="lock-button"><i class="fa-solid fa-lock"></i></a>
+                <a href="#" id="delete-btn"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <!-- Table Head -->
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Website</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>select</th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        
+                        <td class="website">{{user.website}}</td>
+                        <td  class="username">{{ user.username }}</td>
+                        <td class="password" data-password="{{ user.password }}"></td>
+                        <td><input type="checkbox" class="panel-checkbox" data-id="{{ user.id }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Pop-up Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="panel-form">
+                <input type="hidden" id="action" name="action"> <!-- Hidden input field to specify action -->
+                <input type="hidden" id="row-id" name="row_id"> <!-- Hidden input field to store the row ID -->
+                <label for="website">Website:</label>
+                <input type="text" id="website" name="website">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password">
+                <input type="submit" value="Submit">
+            </form>
+            <div style="text-align:center;margin-top:6px;">
+                <span style="color:red;font-size:1.2rem;" id="error-msg"></span>
+
+            </div>
+        </div>
+    </div>
+
+
+      
+
+
+<!-- Your CSS code -->
+<style>
+/* Styles for the modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* Center modal vertically */
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    max-width: 500px; /* Set maximum width */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow */
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #333; /* Darken close button on hover */
+    text-decoration: none;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #e41111;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #e41111;
+}
+
+
+</style>
+
+<!-- Your JavaScript code -->
+<script>
+    // Get the modal
+    var modal = document.getElementById('edit-modal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("edit-btn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
+
+    // Function to get selected panels
+    function getSelectedPanels() {
+        var selectedPanels = [];
+        var checkboxes = document.querySelectorAll('.panel-checkbox:checked');
+        checkboxes.forEach(function(checkbox) {
+            var panelId = checkbox.dataset.id;
+            selectedPanels.push(panelId);
+        });
+        return selectedPanels;
+    }
+
+    // Function to delete selected panels
+    function deleteSelectedPanels() {
+        var selectedPanels = getSelectedPanels();
+        if (selectedPanels.length === 0) {
+            alert("Please select at least one panel to delete.");
+            return;
+        }
+        // Send selected panel IDs to Flask for deletion
+        fetch('/delete_panels', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ panels: selectedPanels })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Selected panels deleted successfully.");
+                location.reload(); // Refresh the page after deletion
+            } else {
+                alert("Error deleting panels.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Event listener for delete button
+    document.getElementById('delete-btn').addEventListener('click', deleteSelectedPanels);
+
+    // Get the input element
+    var searchInput = document.getElementById('searchInput');
+
+    // Add event listener for input event
+    searchInput.addEventListener('input', function() {
+    // Get the search query
+    var searchText = this.value.toLowerCase();
+
+    // Get all table rows
+    var rows = document.querySelectorAll('tbody tr');
+
+    // Loop through each row and hide/show based on search query
+    rows.forEach(function(row) {
+        // Get the text content of each cell in the row
+        var rowData = row.innerText.toLowerCase();
+        
+        // Check if the row contains the search query
+        if (rowData.includes(searchText)) {
+            row.style.display = ''; // Show the row
+        } else {
+            row.style.display = 'none'; // Hide the row
+        }
+    });
+});
+
+
+
+// Get the lock button
+var lockButton = document.querySelector('#lock-button');
+
+// Add event listener for click event
+lockButton.addEventListener('click', function() {
+    // Get the selected checkbox
+    var selectedCheckbox = document.querySelector('.panel-checkbox:checked');
+
+    // Check if a checkbox is selected
+    if (!selectedCheckbox) {
+        alert('Please select a row to edit.');
+        return;
+    }
+
+    // Get the closest row containing the selected checkbox
+    var selectedRow = selectedCheckbox.closest('tr');
+
+    // Get the row ID from the selected checkbox
+    var rowId = selectedCheckbox.dataset.id;
+
+
+    // Get data from the selected row
+    var website = selectedRow.querySelector('.website').textContent;
+    var username = selectedRow.querySelector('.username').textContent;
+    var password = selectedRow.querySelector('.password').textContent;
+
+    // Populate modal with data from selected row
+    document.querySelector('#row-id').value = rowId; // Set the value of the hidden input field
+    document.querySelector('#website').value = website;
+    document.querySelector('#username').value = username;
+    document.querySelector('#password').value = password;
+
+    var action = rowId ? 'update_model' : 'save_panel';
+    document.querySelector('#action').value = action;
+
+    // Open the modal
+    var modal = document.getElementById('edit-modal');
+    modal.style.display = 'block';
+});
+
+
+// Add event listener to each row to toggle 'selected' class
+var rows = document.querySelectorAll('tbody tr');
+rows.forEach(function(row) {
+    row.addEventListener('click', function() {
+        this.classList.toggle('selected');
+    });
+}); 
+
+function validatePassword(password) {
+    var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{12,}$/;
+    return passwordRegex.test(password);
+}
+
+
+
+
+// Event listener for modal form submission
+document.getElementById('panel-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var passwordValue = document.getElementById("password").value;
+    var websiteValue = document.getElementById("website").value;
+    var usernameValue = document.getElementById("username").value;
+
+    if (passwordValue === ''||websiteValue === ''||usernameValue===''){
+        document.getElementById("error-msg").innerText = "All the fields required here, please fill all the field!";
+        return
+    }
+
+    if (!validatePassword(passwordValue)) {
+        document.getElementById("error-msg").innerText = "Password must be at least 12 characters long and contain at least one special character, one uppercase letter, and one number.";
+        return;
+    }
+    document.getElementById("error-msg").innerText = "";
+    
+    // Get the form data
+    var formData = new FormData(this);
+
+    // Determine the action based on the value of the hidden input field
+    var action = formData.get('action');
+    var url = (action === 'update_model') ? '/update_model' : '/save_panel';
+
+    // Send the form data to the appropriate Flask route
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Panel data saved successfully.");
+            location.reload(); // Refresh the page after saving data
+        } else {
+            alert("Error saving panel data.");
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+</script>
+
+
+
+    {% endblock %}
+

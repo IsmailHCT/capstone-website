@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="{{ url_for('static', filename='css/Login.css') }}" rel="stylesheet" type="text/css">
+
+        <title>Modern Login Page | AsmrProg</title>
+    </head>
+
+    <body>
+
+        <!-- Login And Register Section Start -->
+        <div id="error-message" style="display: none; color: red;" class="alert alert-danger" role="alert"></div>
+        <div class="container" id="container">
+
+
+            <!-- Sign Up Form -->
+
+
+           
+          
+      
+            <div class="form-container sign-up">
+
+                <form id="signup-form" method="post" action="/signup">
+                    <h1>Create Account</h1>
+                    <div class="social-icons">
+                        <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Name" id="name" required>
+                    <input type="email" placeholder="Email" id="email" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <div id="signup-password-message" style="color: red;"></div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+           
+            <!-- Sign In Form -->
+
+
+          
+
+           
+           
+            <div class="form-container sign-in">
+
+                <form id="signin-form" method="post" action="/login">
+                    <h1>Sign In</h1>
+                    <div class="social-icons">
+                        <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email password</span>
+                    <input type="email" id="signin-email" placeholder="Email" name="email" required>
+                    <input type="password" id="signin-password" name="password" placeholder="Password" required>
+                    <div id="signin-password-message" style="color: red;"></div>
+                    <a href="#">Forget Your Password?</a>
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
+            
+            <div class="toggle-container">
+                <div class="toggle">
+                    <div class="toggle-panel toggle-left">
+                        <h1>Welcome Back!</h1>
+                        <p>Enter your personal details to use all of site features</p>
+                        <button class="hidden" id="login">Sign In</button>
+                    </div>
+                    <div class="toggle-panel toggle-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Login And Register Section End -->
+
+        <!-- JavaScript File -->
+
+        <script src="{{ url_for('static', filename='js/Login.js') }}"></script>
+
+
+    </body>
+
+</html>

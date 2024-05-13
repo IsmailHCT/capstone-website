@@ -1,0 +1,462 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  transition: 0.2s ease-in-out;
+  color: #000;
+  text-decoration: none;
+}
+
+::selection {
+  background-color: var(--Soft-Red);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--Soft-Blue);
+}
+
+section {
+  padding: 2rem 9%;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--Very-Dark-Blue);
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+}
+
+.heading h1 {
+  padding-bottom: 2rem;
+}
+
+.heading p {
+  max-width: 60rem;
+  margin: auto;
+  color: var(--Grayish-Blue);
+  font-size: 1.7rem;
+}
+
+.all-btn {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background-color: var(--Soft-Blue);
+  border-radius: 0.5rem;
+  color: #fff;
+}
+
+.all-btn:hover {
+  background-color: transparent;
+  color: var(--Soft-Blue);
+  border: 2px solid var(--Soft-Blue);
+}
+
+:root {
+  --Soft-Blue: hsl(231, 69%, 60%);
+  --Soft-Red: hsl(0, 94%, 66%);
+  --Grayish-Blue: hsl(229, 8%, 60%);
+  --Very-Dark-Blue: hsl(229, 31%, 21%);
+  --box-shadow: 0.5rem 0.5rem 0 hsl(231, 69%, 60%);
+  --text-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.2);
+  --border: 0.2rem solid var(--green);
+}
+
+/* Navbar Sections Starts */
+/* Navbar Sections Starts */
+/* Navbar Sections Starts */
+.header {
+  padding: 3rem 9%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  right: 0%;
+  left: 0;
+  z-index: 10000;
+  background-color: #fff;
+  box-shadow: 0rem 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+.header .logo {
+  cursor: pointer;
+}
+
+.header .navbar a {
+  margin-left: 2rem;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+}
+
+.header .navbar a.navActive {
+  color: var(--Soft-Red);
+}
+
+.header .navbar a:hover {
+  color: var(--Soft-Red);
+}
+
+.header .navbar .btn {
+  padding: 0.6rem 3rem;
+  background-color: var(--Soft-Red);
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.header .navbar .btn:hover {
+  color: var(--Soft-Red);
+  background-color: transparent;
+  border: 2px solid var(--Soft-Red);
+}
+
+#menu-btn {
+  padding: 1rem 1rem;
+  background-color: #eee;
+  font-size: 3rem;
+  color: var(--Soft-Blue);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+/* Media Queries */
+
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+  }
+
+  .header {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #menu-btn {
+    display: initial;
+  }
+
+  .header .navbar {
+    position: absolute;
+    top: 115%;
+    right: 2rem;
+    box-shadow: var(--box-shadow);
+    width: 33rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--Soft-Blue);
+    background-color: #fff;
+    transform: scale(0);
+    transform-origin: top right;
+  }
+
+  .header .navbar.active {
+    transform: scale(1);
+  }
+
+  .header .navbar a {
+    margin: 2.5rem;
+    text-align: center;
+    display: block;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+/* Navbar Sections Ends */
+/* Navbar Sections Ends */
+/* Navbar Sections Ends */
+
+/* Home Section Starts  */
+/* Home Section Starts  */
+/* Home Section Starts  */
+.home {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* main property for responsiveness */
+  gap: 1.5rem;
+}
+
+.home .image {
+  flex: 1 1 45rem;
+}
+
+.home .image img {
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.home .content {
+  flex: 1 1 45rem;
+}
+
+.home .content h1 {
+  font-size: 4.5rem;
+  padding-block-end: 1rem 0;
+  color: var(--Very-Dark-Blue);
+}
+
+.home .content p {
+  font-size: 1.7rem;
+  padding: 1rem 0;
+  max-width: 40rem;
+  color: var(--Grayish-Blue);
+  padding-bottom: 4rem;
+}
+
+.home .content .home-btn {
+  padding: 1.3rem 2rem;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.4rem;
+  box-shadow: 0.5rem 0.5rem hsl(231, 69%, 60%);
+  border: 2px solid var(--Soft-Blue);
+  border-radius: 0.5rem;
+}
+
+.home .content .home-btn:hover {
+  background-color: var(--Soft-Blue);
+  box-shadow: none;
+  color: #fff;
+}
+
+/* Home Section Ends */
+/* Home Section Ends */
+/* Home Section Ends */
+
+/* Features Section Starts  */
+/* Features Section Starts  */
+/* Features Section Starts  */
+.features .row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5rem;
+  margin: 3rem 0;
+}
+
+.features .row .image {
+  flex: 1 1 45rem;
+}
+
+.features .row .image img {
+  width: 100%;
+}
+
+.features .row .content {
+  flex: 1 1 45rem;
+}
+
+.features .row .content h1 {
+  font-size: 4rem;
+  padding: 1rem 0;
+  color: var(--Very-Dark-Blue);
+}
+
+.features .row .content p {
+  font-size: 1.7rem;
+  padding: 1rem 0;
+  color: var(--Grayish-Blue);
+  padding-bottom: 4rem;
+}
+
+/* Features Section Ends */
+/* Features Section Ends */
+/* Features Section Ends */
+
+/* Price Section Starts  */
+/* Price Section Starts  */
+/* Price Section Starts  */
+.price .box-container {
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .price .box-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .price .box-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.price .actionButton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price .actionButton-container button {
+  padding: 10px;
+  font-size: 18px;
+  background: none;
+  color: #000000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.price .active {
+  background: var(--Soft-Blue) !important;
+  color: #ffffff !important;
+}
+
+.price .box {
+  border: 2px solid var(--Soft-Blue);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 2.5rem;
+  height: 100%;
+}
+
+.price .box.annual {
+  display: none;
+}
+
+.price .box:hover {
+  border: 2px solid var(--Soft-Blue);
+  box-shadow: none;
+}
+
+.price .box h3 {
+  font-size: 2rem;
+  padding: 1rem 0;
+  color: var(--Very-Dark-Blue);
+}
+
+.price .box p {
+  font-size: 1.7rem;
+  color: var(--Grayish-Blue);
+}
+
+.price .box p.price {
+  font-size: 2.7rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--Soft-Red);
+}
+
+.price .box .button-container {
+  padding-top: 2rem;
+}
+
+.price .box.center-box {
+  background: var(--Soft-Blue);
+  box-shadow: none;
+  box-shadow: 0.5rem 0.5rem 0 #e40742;
+  border: 2px solid #e40742;
+}
+
+.price .box.center-box:hover {
+  border: 2px solid #e40742;
+  box-shadow: none;
+}
+
+.price .box.center-box h3 {
+  color: #ffffff;
+}
+
+.price .box.center-box p {
+  color: #ffffff;
+}
+
+.price .box.center-box p.price {
+  color: #ffffff;
+}
+
+.price .box.center-box a {
+  background: #ffffff;
+  color: #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+.price .box.center-box a:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Price Section Ends */
+/* Price Section Ends */
+/* Price Section Ends */
+
+/* Footer Section Starts */
+/* Footer Section Starts */
+/* Footer Section Starts */
+.footer .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 2rem;
+}
+
+.footer .box-container .box h3 {
+  font-size: 2.5rem;
+  color: var(--black);
+  padding: 1rem 0;
+}
+
+.footer .box-container .box a {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--light-color);
+  padding: 1rem 0;
+}
+
+.footer .box-container .box a i {
+  padding-right: 0.5rem;
+  color: var(--green);
+}
+
+.footer .box-container .box a:hover i {
+  padding-right: 1rem;
+}
+
+.footer .credit {
+  padding: 1rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  color: #000;
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+}
+
+.footer .credit span {
+  color: var(--Soft-Red);
+  cursor: pointer;
+}
+
+/* Footer Section Ends */
+/* Footer Section Ends */
+/* Footer Section Ends */
